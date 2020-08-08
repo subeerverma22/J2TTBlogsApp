@@ -1,5 +1,6 @@
 package com.example.j2ttblogsapp.data
 
+import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -9,10 +10,10 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET("v1/blogs")
-    fun getBlogs(
+    fun getArticles(
         @Query("page") page: Int,
         @Query("limit") pageSize: Int
-    )
+    ): Single<Response>
 
     companion object {
         fun getService(): ApiService {
