@@ -1,5 +1,6 @@
 package com.example.j2ttblogsapp.data
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import io.reactivex.Completable
@@ -13,6 +14,7 @@ class ArticlesDataSource(
     private val compositeDisposable: CompositeDisposable
 ) : PageKeyedDataSource<Int, Article>() {
 
+    private val TAG: String? = ArticlesDataSource::class.simpleName
     var status: MutableLiveData<Status> = MutableLiveData()
     private var retryCompletable: Completable? = null
 
@@ -25,14 +27,16 @@ class ArticlesDataSource(
             apiService.getArticles(1, params.requestedLoadSize)
                 .subscribe(
                     { response ->
+                        Log.d(TAG, "Page number (loadInitial): $params")
                         updateStatus(Status.SUCCESS)
                         callback.onResult(
-                            response.articleList,
+                            response,
                             null,
                             2
                         )
                     },
                     {
+                        Log.d(TAG, "Error in loading Articles (loadInitial): ${it.message}")
                         updateStatus(Status.ERROR)
                         setRetry(Action { loadInitial(params, callback) })
                     }
@@ -46,13 +50,15 @@ class ArticlesDataSource(
             apiService.getArticles(params.key, params.requestedLoadSize)
                 .subscribe(
                     { response ->
+                        Log.d(TAG, "Page number (loadAfter): ${params.key}")
                         updateStatus(Status.SUCCESS)
                         callback.onResult(
-                            response.articleList,
+                            response,
                             params.key + 1
                         )
                     },
                     {
+                        Log.d(TAG, "Error in loading Articles (loadAfter): ${it.message}")
                         updateStatus(Status.ERROR)
                         setRetry(Action { loadAfter(params, callback) })
                     }

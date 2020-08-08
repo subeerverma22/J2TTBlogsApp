@@ -13,7 +13,7 @@ class ArticleListViewModel : ViewModel() {
     private val apiService = ApiService.getService()
     var articleList: LiveData<PagedList<Article>>
     private val compositeDisposable = CompositeDisposable()
-    private val pageSize = 10
+    private val pageSize = 5
     private val articlesDataSourceFactory: ArticlesDataSourceFactory
 
     init {
