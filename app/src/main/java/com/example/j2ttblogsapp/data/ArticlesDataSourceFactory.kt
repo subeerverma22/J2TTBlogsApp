@@ -4,6 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import io.reactivex.disposables.CompositeDisposable
 
+/**
+ * Data source factory class to get the ArticlesDataSource object
+ */
 class ArticlesDataSourceFactory(
     private val compositeDisposable: CompositeDisposable,
     private val apiService: ApiService

@@ -1,5 +1,6 @@
 package com.example.j2ttblogsapp.view.articles
 
+import android.content.Context
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -10,25 +11,27 @@ import com.example.j2ttblogsapp.data.Status
 class ArticlesListAdapter(private val retry: () -> Unit) :
     PagedListAdapter<Article, RecyclerView.ViewHolder>(articlesDiffCallback) {
 
-    private val VIEW_TYPE_ARTICLE = 1
+    private lateinit var context: Context
+    private val VIEW_TYPE_CONTENT = 1
     private val VIEW_TYPE_FOOTER = 2
     private var state = Status.LOADING
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == VIEW_TYPE_ARTICLE) ArticlesViewHolder.create(parent) else ListFooterViewHolder.create(
+        context = parent.context
+        return if (viewType == VIEW_TYPE_CONTENT) ArticlesViewHolder.create(parent) else ListFooterViewHolder.create(
             retry,
             parent
         )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (getItemViewType(position) == VIEW_TYPE_ARTICLE)
-            (holder as ArticlesViewHolder).bind(getItem(position))
+        if (getItemViewType(position) == VIEW_TYPE_CONTENT)
+            (holder as ArticlesViewHolder).bind(getItem(position), context)
         else (holder as ListFooterViewHolder).bind(state)
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position < super.getItemCount()) VIEW_TYPE_ARTICLE else VIEW_TYPE_FOOTER
+        return if (position < super.getItemCount()) VIEW_TYPE_CONTENT else VIEW_TYPE_FOOTER
     }
 
     companion object {
@@ -48,10 +51,10 @@ class ArticlesListAdapter(private val retry: () -> Unit) :
     }
 
     private fun hasFooter(): Boolean {
-        return super.getItemCount() != 0 && (state == Status.LOADING || state == Status.ERROR)
+        return super.getItemCount() != 0 && (state == Status.LOADING || state == Status.ERROR || state == Status.NO_NETWORK)
     }
 
-    fun setState(state: Status) {
+    fun setStatus(state: Status) {
         this.state = state
         notifyItemChanged(super.getItemCount())
     }

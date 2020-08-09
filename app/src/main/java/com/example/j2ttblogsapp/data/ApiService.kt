@@ -9,7 +9,7 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("jet2/api/v1/blogs")
+    @GET("blogs")
     fun getArticles(
         @Query("page") page: Int,
         @Query("limit") pageSize: Int
@@ -18,7 +18,7 @@ interface ApiService {
     companion object {
         fun getService(): ApiService {
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://5e99a9b1bc561b0016af3540.mockapi.io/")
+                .baseUrl("https://5e99a9b1bc561b0016af3540.mockapi.io/jet2/api/v1/")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

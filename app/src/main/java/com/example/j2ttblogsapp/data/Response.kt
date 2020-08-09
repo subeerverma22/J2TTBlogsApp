@@ -2,6 +2,7 @@ package com.example.j2ttblogsapp.data
 
 data class Article(
     val content: String,
+    val createdAt: String,
     val comments: Int,
     val likes: Int,
     val media: List<Media>,

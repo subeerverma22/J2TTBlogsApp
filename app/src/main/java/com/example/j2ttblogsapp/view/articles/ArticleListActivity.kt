@@ -25,14 +25,22 @@ class ArticleListActivity : AppCompatActivity() {
     }
 
     private fun updateStatus() {
-        tv_error.setOnClickListener { viewModel.retry() }
+        btn_retry.setOnClickListener { viewModel.retry() }
         viewModel.getStatus().observe(this, Observer { status ->
             progress_bar.visibility =
                 if (viewModel.isListEmpty() && status == Status.LOADING) View.VISIBLE else View.GONE
-            tv_error.visibility =
-                if (viewModel.isListEmpty() && status == Status.ERROR) View.VISIBLE else View.GONE
+
+            if (status == Status.NO_NETWORK) {
+                tv_error.text = getString(R.string.no_network)
+            } else if (status == Status.ERROR) {
+                tv_error.text = getString(R.string.error_loading_articles)
+            }
+
+            try_again_layout.visibility =
+                if (viewModel.isListEmpty() && (status == Status.ERROR || status == Status.NO_NETWORK)) View.VISIBLE else View.GONE
+
             if (!viewModel.isListEmpty()) {
-                articlesListAdapter.setState(status ?: Status.SUCCESS)
+                articlesListAdapter.setStatus(status ?: Status.SUCCESS)
             }
         })
     }

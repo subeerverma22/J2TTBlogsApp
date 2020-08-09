@@ -1,5 +1,5 @@
 package com.example.j2ttblogsapp.data
 
 enum class Status {
-    SUCCESS, LOADING, ERROR
+    SUCCESS, LOADING, ERROR, NO_NETWORK
 }

@@ -3,12 +3,16 @@ package com.example.j2ttblogsapp.data
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
+import com.example.j2ttblogsapp.utils.NetworkUtil
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Action
 import io.reactivex.schedulers.Schedulers
 
+/**
+ * Data source class to get the article list form web.
+ */
 class ArticlesDataSource(
     private val apiService: ApiService,
     private val compositeDisposable: CompositeDisposable
@@ -23,11 +27,15 @@ class ArticlesDataSource(
         callback: LoadInitialCallback<Int, Article>
     ) {
         updateStatus(Status.LOADING)
+        if (!NetworkUtil.isInternetAvailable()!!) {
+            updateStatus(Status.NO_NETWORK)
+            setRetry(Action { loadInitial(params, callback) })
+            return
+        }
         compositeDisposable.add(
             apiService.getArticles(1, params.requestedLoadSize)
                 .subscribe(
                     { response ->
-                        Log.d(TAG, "Page number (loadInitial): $params")
                         updateStatus(Status.SUCCESS)
                         callback.onResult(
                             response,
@@ -46,11 +54,15 @@ class ArticlesDataSource(
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Article>) {
         updateStatus(Status.LOADING)
+        if (!NetworkUtil.isInternetAvailable()) {
+            updateStatus(Status.NO_NETWORK)
+            setRetry(Action { loadAfter(params, callback) })
+            return
+        }
         compositeDisposable.add(
             apiService.getArticles(params.key, params.requestedLoadSize)
                 .subscribe(
                     { response ->
-                        Log.d(TAG, "Page number (loadAfter): ${params.key}")
                         updateStatus(Status.SUCCESS)
                         callback.onResult(
                             response,

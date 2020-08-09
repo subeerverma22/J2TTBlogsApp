@@ -14,7 +14,7 @@ class ListFooterViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun bind(status: Status?) {
         itemView.progress_bar.visibility = if (status == Status.LOADING) VISIBLE else INVISIBLE
-        itemView.tv_error.visibility = if (status == Status.ERROR) VISIBLE else INVISIBLE
+        itemView.tv_error.visibility = if (status == Status.ERROR || status == Status.NO_NETWORK) VISIBLE else INVISIBLE
     }
 
     companion object {

@@ -22,18 +22,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/dimen_16dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:textSize="@dimen/text_size_12sp"
-            tools:text="1 min" />
+            tools:text="@string/article_time" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingStart="@dimen/activity_horizontal_margin"
-            android:paddingEnd="@dimen/activity_horizontal_margin">
+            android:paddingStart="@dimen/dimen_16dp"
+            android:paddingEnd="@dimen/dimen_16dp">
 
             <LinearLayout
                 android:id="@+id/user_details_layout"
@@ -45,10 +45,9 @@
 
                 <ImageView
                     android:id="@+id/iv_user"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleType="centerInside"
-                    tools:src="@mipmap/ic_launcher" />
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/ic_user_placeholder"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -66,7 +65,7 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_16sp"
                         android:textStyle="bold"
-                        tools:text="User name" />
+                        tools:text="@string/user_name" />
 
                     <TextView
                         android:id="@+id/tv_user_designation"
@@ -76,7 +75,7 @@
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:textSize="@dimen/text_size_16sp"
-                        tools:text="User Designation" />
+                        tools:text="@string/user_designation" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -84,10 +83,9 @@
             <ImageView
                 android:id="@+id/iv_article"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_150dp"
+                android:layout_height="@dimen/dimen_200dp"
                 android:layout_marginTop="@dimen/dimen_5dp"
-                android:scaleType="fitXY"
-                tools:src="@mipmap/ic_launcher" />
+                android:scaleType="fitXY"/>
 
             <TextView
                 android:id="@+id/tv_article_content"
@@ -95,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_5dp"
                 android:textSize="@dimen/text_size_16sp"
-                tools:text="Article description Article description Article description Article description Article description Article description Article description Article description Article description " />
+                tools:text="@string/article_description" />
 
             <TextView
                 android:id="@+id/tv_article_title"
@@ -103,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_5dp"
                 android:textSize="@dimen/text_size_16sp"
-                tools:text="Article title " />
+                tools:text="@string/article_title" />
 
             <TextView
                 android:id="@+id/tv_article_url"
@@ -111,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_5dp"
                 android:textSize="@dimen/text_size_16sp"
-                tools:text="Article url " />
+                tools:text="@string/article_url" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -128,7 +126,7 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_16sp"
                     android:textStyle="bold"
-                    tools:text="Likes" />
+                    tools:text="@string/likes" />
 
                 <TextView
                     android:id="@+id/tv_comments"
@@ -138,7 +136,7 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_16sp"
                     android:textStyle="bold"
-                    tools:text="Comments" />
+                    tools:text="@string/comments" />
             </RelativeLayout>
 
         </LinearLayout>

@@ -8,5 +8,16 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="error_tap_to_retry">ERROR. Tap to retry.</string>
+    <string name="try_again">Try again</string>
+    <string name="error_loading_articles">Error Loading Articles</string>
+    <string name="error_tap_to_retry">Error loading articles.. Tap to retry</string>
+    <string name="no_network">No Internet Connection</string>
+    <string name="user_name">User name</string>
+    <string name="user_designation">User Designation</string>
+    <string name="article_description">Article description</string>
+    <string name="article_title">Article title</string>
+    <string name="article_url">Article url</string>
+    <string name="likes"> Likes</string>
+    <string name="comments"> Comments</string>
+    <string name="article_time">Article time</string>
 </resources>
